@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <link rel="stylesheet" href="stylesheets/screen.css" type="text/css" media="screen" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+      gsa-feeds
+  </title>
+  <script src="javascripts/rounded_corners_lite.inc.js" type="text/javascript"></script>
+<style>
+
+</style>
+  <script type="text/javascript">
+    window.onload = function() {
+      settings = {
+          tl: { radius: 10 },
+          tr: { radius: 10 },
+          bl: { radius: 10 },
+          br: { radius: 10 },
+          antiAlias: true,
+          autoPad: true,
+          validTags: ["div"]
+      }
+      var versionBox = new curvyCorners(settings, document.getElementById("version"));
+      versionBox.applyCornersToAll();
+    }
+  </script>
+</head>
+<body>
+<div id="main">
+
+    <h1>gsa-feeds</h1>
+    <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/gsa-feeds"; return false'>
+      <p>Get Version</p>
+      <a href="http://rubyforge.org/projects/gsa-feeds" class="numbers">0.0.1</a>
+    </div>
+    <h2>What?</h2>
+
+
+	<p>A Ruby wrapper for the Google Search Appliance Feeds Protocol. This protocol exists to push content and metadata to the search appliance for processing, indexing, and serving as search results. Feeds are available in <span class="caps">GSA</span> software versions 4.2 and later.</p>
+
+
+	<h2>Installing</h2>
+
+
+	<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">gsa</span><span class="punct">-</span><span class="ident">feeds</span></pre></p>
+
+
+	<h2>Demonstration of usage</h2>
+
+
+	<p><pre class='syntax'>
+<span class="punct">&gt;&gt;</span> <span class="ident">require</span> <span class="punct">'</span><span class="string">gsa_feeds</span><span class="punct">'</span> <span class="comment">#note the stupid dash/underscore conflict. awesome, huh?</span>
+<span class="punct">=&gt;</span> <span class="constant">true</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">g</span> <span class="punct">=</span> <span class="constant">GsaFeeds</span><span class="punct">::</span><span class="constant">Base</span><span class="punct">.</span><span class="ident">new</span><span class="punct">('</span><span class="string">search.foo.com</span><span class="punct">',</span> <span class="punct">'</span><span class="string">foo_collection_name</span><span class="punct">',</span> <span class="punct">'</span><span class="string">incremental</span><span class="punct">')</span>
+<span class="punct">=&gt;</span> <span class="comment">#&lt;GsaFeeds::Base:0x1546fb8 @hostname=&quot;search.foo.com&quot;, @feedtype=&quot;incrementall&quot;, @datasource=&quot;foo_collection_name&quot;, @records=[], @timeout=60&gt;</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">g</span><span class="punct">.</span><span class="ident">build_record</span><span class="punct">(&quot;</span><span class="string">http://foo.com/entries/2</span><span class="punct">&quot;,</span> <span class="punct">{</span><span class="symbol">:mimetype</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">text/plain</span><span class="punct">&quot;,</span> <span class="symbol">:displayurl</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">http://foo.com/2</span><span class="punct">&quot;},</span> <span class="punct">{</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">test document title</span><span class="punct">&quot;},</span> <span class="punct">&quot;</span><span class="string">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</span><span class="punct">&quot;)</span>
+<span class="punct">=&gt;</span> <span class="punct">[</span><span class="comment">#&lt;GsaFeeds::Record:0x15a17b0 @hash={:url=&gt;&quot;http://foo.com/entries/2&quot;, :displayurl=&gt;&quot;http://foo.com/2&quot;, :mimetype=&gt;&quot;text/plain&quot;}, @content=&quot;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&quot;, @metadata={:title=&gt;&quot;test document title&quot;}&gt;]</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">puts</span> <span class="ident">g</span><span class="punct">.</span><span class="ident">to_xml</span>
+<span class="punct">&lt;</span><span class="char">?x</span><span class="ident">ml</span> <span class="ident">version</span><span class="punct">=&quot;</span><span class="string">1.0</span><span class="punct">&quot;</span> <span class="ident">encoding</span><span class="punct">=&quot;</span><span class="string">UTF-8</span><span class="punct">&quot;</span><span class="char">?&gt;</span>
+<span class="punct">&lt;!</span><span class="constant">DOCTYPE</span> <span class="ident">gsafeed</span> <span class="constant">PUBLIC</span> <span class="punct">&quot;</span><span class="string">-//Google//DTD GSA Feeds//EN</span><span class="punct">&quot;</span> <span class="punct">&quot;</span><span class="string"></span><span class="punct">&quot;&gt;</span>
+<span class="punct">&lt;</span><span class="ident">gsafeed</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;</span><span class="ident">header</span><span class="punct">&gt;</span>
+    <span class="punct">&lt;</span><span class="ident">datasource</span><span class="punct">&gt;</span><span class="ident">lexmonitor</span><span class="punct">&lt;/</span><span class="regex">datasource&gt;
+    &lt;feedtype&gt;incremental&lt;</span><span class="punct">/</span><span class="ident">feedtype</span><span class="punct">&gt;</span>
+  <span class="punct">&lt;/</span><span class="regex">header&gt;
+  &lt;group&gt;
+    &lt;record url=&quot;http:</span><span class="punct">//</span><span class="ident">foo</span><span class="punct">.</span><span class="ident">com</span><span class="punct">/</span><span class="ident">entries</span><span class="punct">/</span><span class="number">2</span><span class="punct">&quot;</span><span class="string"> displayurl=</span><span class="punct">&quot;</span><span class="ident">http</span><span class="punct">:/</span><span class="regex"></span><span class="punct">/</span><span class="ident">foo</span><span class="punct">.</span><span class="ident">com</span><span class="punct">/</span><span class="number">2</span><span class="punct">&quot;</span><span class="string"> mimetype=</span><span class="punct">&quot;</span><span class="ident">text</span><span class="punct">/</span><span class="ident">plain</span><span class="punct">&quot;</span><span class="string">&gt;
+      &lt;metadata&gt;
+        &lt;meta name=</span><span class="punct">&quot;</span><span class="ident">title</span><span class="punct">&quot;</span><span class="string"> content=</span><span class="punct">&quot;</span><span class="ident">test</span> <span class="ident">document</span> <span class="ident">title</span><span class="punct">&quot;</span><span class="string">/&gt;
+      &lt;/metadata&gt;
+      &lt;content&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&lt;/content&gt;
+    &lt;/record&gt;
+  &lt;/group&gt;
+&lt;/gsafeed&gt;
+=&gt; nil
+&gt;&gt; g.commit!
+=&gt; true<span class="normal">
+</span></span></pre></p>
+
+
+	<h2>Hacking</h2>
+
+
+	<p>The <span class="caps">SVN</span> repo is <code>svn://rubyforge.org/var/svn/gsa-feeds/trunk</code>. To chip in, <a href="http://pastie.caboo.se">pastie</a> your patches and email a link to <a href="mailto:jnewland@gmail.com">Jesse Newland</a>.</p>
+
+
+	<h2>License</h2>
+
+
+	<p>This code is free to use under the terms of the <span class="caps">MIT</span> license.</p>
+
+
+	<h2>Disclaimer</h2>
+
+
+	<p>This project is in no way associated with Google.</p>
+
+
+	<h2>Contributors</h2>
+
+
+	<p>Erik Kastner is awesome. That is all.</p>
+
+
+	<h2>Contact</h2>
+
+
+	<p>Comments are welcome. Send an email to <a href="mailto:jnewland@gmail.com">Jesse Newland</a>.</p>
+    <p class="coda">
+      <a href="http://soylentfoo.jnewland.com/">Jesse Newland</a>, 16th November 2007<br>
+      Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
+    </p>
+</div>
+
+<!-- insert site tracking codes here, like Google Urchin -->
+
+</body>
+</html>

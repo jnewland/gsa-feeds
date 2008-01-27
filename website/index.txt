@@ -1,0 +1,60 @@
+h1. gsa-feeds
+
+h2. What?
+
+A Ruby wrapper for the Google Search Appliance Feeds Protocol. This protocol exists to push content and metadata to the search appliance for processing, indexing, and serving as search results. Feeds are available in GSA software versions 4.2 and later.
+
+h2. Installing
+
+<pre syntax="ruby">sudo gem install gsa-feeds</pre>
+
+h2. Demonstration of usage
+
+<pre syntax="ruby">
+>> require 'gsa_feeds' #note the stupid dash/underscore conflict. awesome, huh?
+=> true
+>> g = GsaFeeds::Base.new('search.foo.com', 'foo_collection_name', 'incremental')
+=> #<GsaFeeds::Base:0x1546fb8 @hostname="search.foo.com", @feedtype="incrementall", @datasource="foo_collection_name", @records=[], @timeout=60>
+>> g.build_record("http://foo.com/entries/2", {:mimetype => "text/plain", :displayurl => "http://foo.com/2"}, {:title => "test document title"}, "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.")
+=> [#<GsaFeeds::Record:0x15a17b0 @hash={:url=>"http://foo.com/entries/2", :displayurl=>"http://foo.com/2", :mimetype=>"text/plain"}, @content="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.", @metadata={:title=>"test document title"}>]
+>> puts g.to_xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gsafeed PUBLIC "-//Google//DTD GSA Feeds//EN" "">
+<gsafeed>
+  <header>
+    <datasource>foo_collection_name</datasource>
+    <feedtype>incremental</feedtype>
+  </header>
+  <group>
+    <record url="http://foo.com/entries/2" displayurl="http://foo.com/2" mimetype="text/plain">
+      <metadata>
+        <meta name="title" content="test document title"/>
+      </metadata>
+      <content>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin auctor quam sed massa imperdiet iaculis. Vestibulum ut massa vitae leo fringilla dapibus. Suspendisse et ligula. Sed elit orci, ultricies eget, rutrum in, dignissim ut, arcu. Cras risus. Duis sed massa a nisl feugiat pretium. Sed blandit, risus vel vestibulum consectetuer, sapien mi varius libero, in egestas mi nisl at elit. Vivamus risus felis, pretium ac, porta vitae, porttitor vitae, lorem. Nunc rutrum enim sit amet justo. Morbi conseuat urna eu sem. Integer et sem vestibulum magna accumsan adipiscing. Donec orci arcu, nonummy nec, placerat id, hendrerit et, pede. Suspendisse sit amet eros sed lectus rutrum hendrerit. Suspendisse metus leo, accumsan tincidunt, accumsan sed, hendrerit vitae, leo. Curabitur est mi, commodo id, lacinia quis, pellentesque ut, neque. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</content>
+    </record>
+  </group>
+</gsafeed>
+=> nil
+>> g.commit!
+=> true
+</pre>
+
+h2. Hacking
+
+The SVN repo is <code>svn://rubyforge.org/var/svn/gsa-feeds/trunk</code>. To chip in, "pastie":http://pastie.caboo.se your patches and email a link to "Jesse Newland":mailto:jnewland@gmail.com.
+
+h2. License
+
+This code is free to use under the terms of the MIT license. 
+
+h2. Disclaimer
+
+This project is in no way associated with Google.
+
+h2. Contributors
+
+Erik Kastner is awesome. That is all.
+
+h2. Contact
+
+Comments are welcome. Send an email to "Jesse Newland":mailto:jnewland@gmail.com.
