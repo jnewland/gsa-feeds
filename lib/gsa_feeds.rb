@@ -1,4 +1,5 @@
 $:.unshift File.dirname(__FILE__)
+require 'net/http'
 require 'multipart'
 require 'builder'
 module GsaFeeds
