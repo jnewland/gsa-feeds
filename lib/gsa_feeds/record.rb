@@ -9,7 +9,7 @@ class GsaFeeds::Record
   
   #automap the metadata hash into an array name / content pairs
   def metadata
-    @metadata.map { |key, value| {:name => key, :content => value } }
+    @metadata.map { |key, value| {:name => key, :content => value } } rescue nil
   end
   
   def to_h
